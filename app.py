@@ -5,9 +5,9 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import os
 import sqlite3
 
-# 環境変数や直接埋め込みでもOK（本番は環境変数推奨）
-CHANNEL_ACCESS_TOKEN = "YOUR_CHANNEL_ACCESS_TOKEN"
-CHANNEL_SECRET = "YOUR_CHANNEL_SECRET"
+# 環境変数（Render）
+CHANNEL_SECRET = os.environ.get("LINE_CHANNEL_SECRET")
+CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN")
 
 app = Flask(__name__)
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
