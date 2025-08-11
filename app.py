@@ -24,6 +24,15 @@ def callback():
     return "OK"
 
 @handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    user_message = event.message.text.strip()
+    reply_text = db_search(user_message)
+
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=reply_text)
+    )
+
 def db_search(keyword):
     db = sqlite3.connect('drug_memo.db')
     cur = db.cursor()
@@ -39,21 +48,12 @@ def db_search(keyword):
     db.close()
 
     if len(results) == 0:
-        txt = '該当データはありません。'
+        return '該当データはありません。'
     else:
         txt = ''
-        for i in range(len(results)):
-            txt = txt + f'◼︎{results[i][1]}\n{results[i][3]}\n\n'
-    return txt
-
-def handle_message(event):
-    user_message = event.message.text.strip()
-    reply_text = db_search(user_message)
-
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=reply_text)
-    )
+        for result in results:
+            txt += txt + f'◼︎{result[1]}\n{result[3]}\n\n'
+        return txt
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
