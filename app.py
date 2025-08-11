@@ -52,7 +52,7 @@ def db_search(keyword):
     else:
         txt = ''
         for result in results:
-            txt += txt + f'◼︎{result[1]}\n{result[3]}\n\n'
+            txt += f'◼︎{result[1]}\n{result[3]}\n\n'
         return txt
 
 if __name__ == "__main__":
