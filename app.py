@@ -38,7 +38,7 @@ def db_search(keyword):
     cur = db.cursor()
 
     cur.execute("""
-        SELECT * FROM T_memo 
+        SELECT * FROM memo 
         WHERE drug LIKE ? OR tag LIKE ? OR memo LIKE ? 
         """, 
         [f'%{keyword}%', f'%{keyword}%', f'%{keyword}%']
