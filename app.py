@@ -48,7 +48,7 @@ def db_search(keyword):
     db.close()
 
     if len(results) == 0:
-        return '該当データはありません。'
+        return '該当データはありません！'
     else:
         txt = ''
         for result in results:
